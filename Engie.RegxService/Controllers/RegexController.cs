@@ -16,6 +16,14 @@ namespace Engie.RegxApp.Api.Controllers
             _regexService = regexService;
         }
 
+
+        [HttpGet("flags")]
+        public ActionResult<IList<RegexFlagDetails>> GetFlags()
+        {
+            var result = _regexService.GetRegexFlags();
+            return result;
+        }
+
         [HttpPost()]
         public ActionResult<RegexMatchResult> FindMatch(RegexRequest regexRequest)
         {
@@ -39,11 +47,6 @@ namespace Engie.RegxApp.Api.Controllers
             return result;
         }
 
-        [HttpGet("flags")]
-        public ActionResult<IList<RegexFlagDetails>> GetFlags()
-        {
-            var result = _regexService.GetRegexFlags();
-            return result;
-        }
+        
     }
 }

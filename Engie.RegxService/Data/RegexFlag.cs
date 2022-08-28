@@ -11,16 +11,24 @@ namespace Engie.RegexApp.Api.Data
     /// </summary>
     public enum SpecificRegexOptions
     {
-        Global = 5000
+        #region .Net RegularExpressions enum
+        None = 0,
+        IgnoreCase = 1,
+        Multiline = 2,
+        ExplicitCapture = 4,
+        Singleline = 16,
+        IgnorePatternWhitespace = 32,
+        RightToLeft = 64,
+        #endregion
+
+        Global = 5000,
     }
 
     public static class RegexFlag
     {
         public static List<int> GetRegexOptionsIds()
         {
-            var flags = Enum.GetValues(typeof(RegexOptions)).Cast<int>().ToList();
-            flags.AddRange(Enum.GetValues(typeof(SpecificRegexOptions)).Cast<int>().ToList());
-            return flags;
+            return Enum.GetValues(typeof(SpecificRegexOptions)).Cast<int>().ToList();
         }
 
         public static bool IsValidRegexOptionsId(int id)

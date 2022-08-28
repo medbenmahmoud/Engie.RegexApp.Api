@@ -117,14 +117,77 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="REGEX_FLAG_CODE_0" xml:space="preserve">
+    <value>None</value>
+  </data>
   <data name="REGEX_FLAG_CODE_1" xml:space="preserve">
     <value>i</value>
+  </data>
+  <data name="REGEX_FLAG_CODE_16" xml:space="preserve">
+    <value>S</value>
+  </data>
+  <data name="REGEX_FLAG_CODE_2" xml:space="preserve">
+    <value>m</value>
+  </data>
+  <data name="REGEX_FLAG_CODE_32" xml:space="preserve">
+    <value>X</value>
+  </data>
+  <data name="REGEX_FLAG_CODE_4" xml:space="preserve">
+    <value>n</value>
+  </data>
+  <data name="REGEX_FLAG_CODE_5000" xml:space="preserve">
+    <value>g</value>
+  </data>
+  <data name="REGEX_FLAG_CODE_64" xml:space="preserve">
+    <value>Right to left</value>
+  </data>
+  <data name="REGEX_FLAG_DESC_0" xml:space="preserve">
+    <value>No options are set</value>
   </data>
   <data name="REGEX_FLAG_DESC_1" xml:space="preserve">
     <value>Case insensitive match</value>
   </data>
+  <data name="REGEX_FLAG_DESC_16" xml:space="preserve">
+    <value>Dot matches newline</value>
+  </data>
+  <data name="REGEX_FLAG_DESC_2" xml:space="preserve">
+    <value>^ and $ match start/end of line</value>
+  </data>
+  <data name="REGEX_FLAG_DESC_32" xml:space="preserve">
+    <value>Ignore whitespace</value>
+  </data>
+  <data name="REGEX_FLAG_DESC_4" xml:space="preserve">
+    <value>Groups are no longer implicitly capturing</value>
+  </data>
+  <data name="REGEX_FLAG_DESC_5000" xml:space="preserve">
+    <value>Don't return after first match</value>
+  </data>
+  <data name="REGEX_FLAG_DESC_64" xml:space="preserve">
+    <value>Perform matching from right to left</value>
+  </data>
+  <data name="REGEX_FLAG_NAME_0" xml:space="preserve">
+    <value>None</value>
+  </data>
   <data name="REGEX_FLAG_NAME_1" xml:space="preserve">
     <value>Insensitive</value>
+  </data>
+  <data name="REGEX_FLAG_NAME_16" xml:space="preserve">
+    <value>Single line</value>
+  </data>
+  <data name="REGEX_FLAG_NAME_2" xml:space="preserve">
+    <value>Multi line</value>
+  </data>
+  <data name="REGEX_FLAG_NAME_32" xml:space="preserve">
+    <value>Extented</value>
+  </data>
+  <data name="REGEX_FLAG_NAME_4" xml:space="preserve">
+    <value>Non-capturing</value>
+  </data>
+  <data name="REGEX_FLAG_NAME_5000" xml:space="preserve">
+    <value>Global</value>
+  </data>
+  <data name="REGEX_FLAG_NAME_64" xml:space="preserve">
+    <value>Right to left</value>
   </data>
   <data name="REGEX_MATCH_MESSAGE" xml:space="preserve">
     <value>Your regular expression match the subject string.</value>
