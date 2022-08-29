@@ -73,8 +73,7 @@ namespace Engie.RegexApp.UnitTest
         public void AssertFlagsRegexCount()
         {            
             var result = _regexService.GetRegexFlags();
-            var flagsCount = Enum.GetValues(typeof(RegexOptions)).Length;
-            flagsCount += Enum.GetValues(typeof(SpecificRegexOptions)).Length;
+            var flagsCount = Enum.GetValues(typeof(SpecificRegexOptions)).Length;
             Assert.Equal(result.Count, flagsCount);
         }
     }
