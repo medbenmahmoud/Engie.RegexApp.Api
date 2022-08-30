@@ -1,2 +1,2 @@
 
-# Engie.RegexApp.Validator V1 Beta
+# Engie.RegexApp.Validator V1.1 Beta
