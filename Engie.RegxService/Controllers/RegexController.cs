@@ -1,7 +1,9 @@
-﻿using Engie.RegexApp.Api.Data;
-using Engie.RegexApp.Api.Interfaces;
+﻿using Engie.RegexApp.Api;
+using Engie.RegexApp.Api.Data;
 using Engie.RegexApp.Api.Models;
+using Engie.RegexApp.Api.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 
 namespace Engie.RegxApp.Api.Controllers
@@ -10,17 +12,28 @@ namespace Engie.RegxApp.Api.Controllers
     [ApiController]
     public class RegexController : ControllerBase
     {
-        private readonly IRegexService _regexService;
-        public RegexController(IRegexService regexService)
-        {
-            _regexService = regexService;
-        }
+        private readonly IStringLocalizer<Resource> _localizer;
 
+        public RegexController(IStringLocalizer<Resource> localizer)
+        {
+            _localizer = localizer;
+        }
 
         [HttpGet("flags")]
         public ActionResult<IList<RegexFlagDetails>> GetFlags()
         {
-            var result = _regexService.GetRegexFlags();
+            var flagIds = RegexService.Instance.GetRegexFlagsIds();
+            var result = new List<RegexFlagDetails>();
+            foreach (int flagId in flagIds)
+            {
+                result.Add(new RegexFlagDetails()
+                {
+                    Id = flagId,
+                    Code = _localizer["REGEX_FLAG_CODE_" + flagId].ResourceNotFound ? string.Empty : _localizer["REGEX_FLAG_CODE_" + flagId],
+                    Name = _localizer["REGEX_FLAG_NAME_" + flagId].ResourceNotFound ? string.Empty : _localizer["REGEX_FLAG_NAME_" + flagId],
+                    Description = _localizer["REGEX_FLAG_DESC_" + flagId].ResourceNotFound ? string.Empty : _localizer["REGEX_FLAG_DESC_" + flagId]
+                });
+            }
             return result;
         }
 
@@ -42,7 +55,8 @@ namespace Engie.RegxApp.Api.Controllers
                 }
                 
             }
-            var result = _regexService.CheckRegexExpression(regexRequest);
+            var result = RegexService.Instance.CheckRegexExpression(regexRequest);
+            result.Message = result.IsMatch ? _localizer["REGEX_MATCH_MESSAGE"] : _localizer["REGEX_NOT_MATCH_MESSAGE"];
 
             return result;
         }

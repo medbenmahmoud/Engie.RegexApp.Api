@@ -1,38 +1,21 @@
-using Engie.RegexApp.Api.Interfaces;
 using Engie.RegexApp.Api.Models;
-using Engie.RegexApp.Api.Services;
 using System;
-using System.Text.RegularExpressions;
 using Xunit;
-using Microsoft.Extensions.Localization;
-using Microsoft.Extensions.Logging.Abstractions;
-using Microsoft.Extensions.Options;
-using Engie.RegexApp.Api;
-using System.Globalization;
 using Engie.RegexApp.UnitTest.Data;
 using System.Linq;
 using Engie.RegexApp.Api.Data;
+using Engie.RegexApp.Api.Services;
 
 namespace Engie.RegexApp.UnitTest
 {
     public class RegexServiceTest
     {
 
-        private readonly IRegexService _regexService;
-        public RegexServiceTest()
-        {
-            var options = Options.Create(new LocalizationOptions());
-            var factory = new ResourceManagerStringLocalizerFactory(options, NullLoggerFactory.Instance);
-            var localizer = new StringLocalizer<Resource>(factory);
-            CultureInfo.CurrentCulture = new CultureInfo("en-US");
-            _regexService = new RegexService(localizer);
-        }
-
         [Theory]
         [ClassData(typeof(ValidRegexValues))]
         public void AssertRegexResults(RegexRequest regexRequest, RegexMatchResult regexMatchResult)
         {
-            var result = _regexService.CheckRegexExpression(regexRequest);
+            var result = RegexService.Instance.CheckRegexExpression(regexRequest);
             Assert.NotNull(result);
             Assert.Equal(result.IsMatch, regexMatchResult.IsMatch);
             Assert.Equal(result.SubstitutionText, regexMatchResult.SubstitutionText);
@@ -72,7 +55,7 @@ namespace Engie.RegexApp.UnitTest
         [Fact]
         public void AssertFlagsRegexCount()
         {            
-            var result = _regexService.GetRegexFlags();
+            var result = RegexService.Instance.GetRegexFlagsIds();
             var flagsCount = Enum.GetValues(typeof(SpecificRegexOptions)).Length;
             Assert.Equal(result.Count, flagsCount);
         }

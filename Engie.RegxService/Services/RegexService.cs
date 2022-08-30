@@ -4,28 +4,27 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Engie.RegexApp.Api.Interfaces;
 using Engie.RegexApp.Api.Models;
-using Microsoft.Extensions.Localization;
 using Engie.RegexApp.Api.Mappers;
 using Engie.RegexApp.Api.Data;
 
 namespace Engie.RegexApp.Api.Services
 {
-    public class RegexService : IRegexService
+    public sealed class RegexService : IRegexService
     {
-        private readonly IStringLocalizer<Resource> _localizer;
+        private static readonly Lazy<RegexService> _instance =
+            new Lazy<RegexService>(() => new RegexService());
 
-        public RegexService(IStringLocalizer<Resource> localizer)
-        {
-            _localizer = localizer;
-        }
+        private RegexService(){}
+
+        public static RegexService Instance => _instance.Value;
 
         public RegexMatchResult CheckRegexExpression(RegexRequest regexRequest)
         {
             Regex rgx;
             if (regexRequest.FlagIds != null && regexRequest.FlagIds.Any())
             {
-                var AggregatedOption = AggregateFlagsIds(regexRequest.FlagIds);
-                rgx = new Regex(regexRequest.Pattern, AggregatedOption);
+                var aggregatedOption = AggregateFlagsIds(regexRequest.FlagIds);
+                rgx = new Regex(regexRequest.Pattern, aggregatedOption);
             }
             else
             {
@@ -34,7 +33,6 @@ namespace Engie.RegexApp.Api.Services
 
             var result = new RegexMatchResult();
             result.IsMatch = rgx.IsMatch(regexRequest.Text);
-            result.Message = result.IsMatch ? _localizer["REGEX_MATCH_MESSAGE"] : _localizer["REGEX_NOT_MATCH_MESSAGE"];
 
             if (regexRequest.FlagIds != null && regexRequest.FlagIds.Any(x => x == (int)SpecificRegexOptions.Global))
             {
@@ -53,21 +51,9 @@ namespace Engie.RegexApp.Api.Services
             return result;
         }
 
-        public List<RegexFlagDetails> GetRegexFlags()
+        public List<int> GetRegexFlagsIds()
         {
-            var result = new List<RegexFlagDetails>();
-            var flagIds = RegexFlag.GetRegexOptionsIds();
-            foreach (int flagId in flagIds)
-            {
-                result.Add(new RegexFlagDetails() {
-                    Id = flagId,
-                    Code = _localizer["REGEX_FLAG_CODE_"+ flagId].ResourceNotFound ? string.Empty : _localizer["REGEX_FLAG_CODE_" + flagId],
-                    Name= _localizer["REGEX_FLAG_NAME_"+ flagId].ResourceNotFound ? string.Empty : _localizer["REGEX_FLAG_NAME_" + flagId],
-                    Description = _localizer["REGEX_FLAG_DESC_"+ flagId].ResourceNotFound ? string.Empty : _localizer["REGEX_FLAG_DESC_" + flagId]
-                });
-            }
-
-            return result;
+            return RegexFlag.GetRegexOptionsIds();
         }
 
         private RegexOptions AggregateFlagsIds(IList<int> flagIds)
@@ -83,5 +69,6 @@ namespace Engie.RegexApp.Api.Services
             }
             return options.Any() ? options.Aggregate((x, y) => x |= y) : RegexOptions.None;
         }
+
     }
 }

@@ -6,6 +6,6 @@ namespace Engie.RegexApp.Api.Interfaces
     public interface IRegexService
     {
         RegexMatchResult CheckRegexExpression(RegexRequest regexRequest);
-        List<RegexFlagDetails> GetRegexFlags();
+        List<int> GetRegexFlagsIds();
     }
 }

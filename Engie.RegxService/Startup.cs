@@ -1,6 +1,4 @@
 using Engie.RegexApp.Api;
-using Engie.RegexApp.Api.Interfaces;
-using Engie.RegexApp.Api.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
@@ -41,7 +39,6 @@ namespace Engie.RegxService
                 });
             services.AddControllers();
             services.AddSwaggerGen();
-            services.AddSingleton<IRegexService, RegexService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
